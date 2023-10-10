@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TarGZImporter</RootNamespace>
+    <AssemblyName>TarGZImporter</AssemblyName>
+    <LangVersion>10</LangVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <ProjectGuid>{0322B2EF-7452-479D-BAE2-FCAB75033337}</ProjectGuid>
+    <GamePath>$(MSBuildThisFileDirectory)Resonite</GamePath>
+    <GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
+    <GamePath Condition="Exists('$(HOME)/.steam/steam/steamapps/common/Resonite/')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
+    <GamePath Condition="Exists('E:\Programs\Steam\steamapps\common\Resonite')">E:\Programs\Steam\steamapps\common\Resonite\</GamePath>
+    <GamePath Condition="Exists('/mnt/LocalDisk/SteamLibrary/steamapps/common/Resonite/')">/mnt/LocalDisk/SteamLibrary/steamapps/common/Resonite/</GamePath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(GamePath)0Harmony.dll</HintPath>
+      <HintPath Condition="Exists('$(GamePath)rml_libs/0Harmony.dll')">$(GamePath)rml_libs/0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Elements.Core">
+      <HintPath>$(GamePath)Resonite_Data\Managed\Elements.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Elements.Assets">
+      <HintPath>$(GamePath)Resonite_Data\Managed\Elements.Assets.dll</HintPath>
+    </Reference>
+    <Reference Include="FrooxEngine">
+      <HintPath>$(GamePath)Resonite_Data\Managed\FrooxEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="ResoniteModLoader">
+      <HintPath>$(GamePath)Libraries\ResoniteModLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TarTarSource.cs" />
+    <Compile Include="TarGZExtractor.cs" />
+    <Compile Include="TarGZImporter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)\$(TargetFileName)" "$(GamePath)rml_mods\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
